@@ -5,3 +5,9 @@ export const getProducts = async () => {
   const data = await res.json()
   return data
 }
+
+export async function getProductDetail(id) {
+  const res = await fetch(`${BASE_URL}/api/product/${id}`)
+  const data = await res.json()
+  return data
+}
