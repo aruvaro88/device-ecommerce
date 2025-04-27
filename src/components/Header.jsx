@@ -1,31 +1,31 @@
 import { Link, useLocation } from "react-router-dom"
 import { useCart } from "../hooks/useCart"
-import { useSearch } from "../hooks/useSearch"
-import { SearchBar } from "./SearchBar"
 
 const Header = () => {
   const { cartCount } = useCart()
-  const { searchString, setSearchString } = useSearch()
+
   const location = useLocation()
   const isHome = location.pathname === "/"
+  const { clearCart } = useCart()
 
   return (
-    <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gray-200">
-      <div className="flex items-center space-x-4">
-        <Link to="/" className="text-2xl font-bold">
-          <img src="/device_ecommerce_logo_full.svg" alt="Logo" className="h-18" />
-        </Link>
-        <span>{isHome ? "Listado de Productos" : "Detalle del Producto"}</span>
-      </div>
-      {isHome && (
-        <div className="mt-2 md:mt-0 w-full md:w-1/3">
-          <SearchBar searchString={searchString} setSearchString={setSearchString} />
+    <>
+      <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gray-200">
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="text-2xl font-bold">
+            <img src="/device_ecommerce_logo_full.svg" alt="Logo" className="h-18" />
+          </Link>
         </div>
-      )}
-      <div className="flex items-center space-x-2 mt-2 md:mt-0">
-        <span>{cartCount}</span>
-      </div>
-    </header>
+
+        <button onClick={clearCart} className="ml-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+          Vaciar carrito
+        </button>
+        <div className="flex items-center space-x-2 mt-2 md:mt-0">
+          <span>{cartCount}</span>
+        </div>
+      </header>
+      <span>{isHome ? "Productos" : "Productos / Detalle"}</span>
+    </>
   )
 }
 

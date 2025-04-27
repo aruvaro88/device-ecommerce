@@ -3,7 +3,7 @@ import { addToCart } from "../api/api"
 import { useCart } from "../hooks/useCart"
 
 export const ProductActions = ({ product }) => {
-  const { setCartCount } = useCart()
+  const { incrementCart } = useCart()
   const [color, setColor] = useState(product.colors[0] || "")
   const [storage, setStorage] = useState(product.internalMemory[0] || "")
 
@@ -13,9 +13,7 @@ export const ProductActions = ({ product }) => {
       colorCode: color,
       storageCode: storage,
     })
-    console.log(count)
-
-    setCartCount(count)
+    incrementCart(count)
   }
 
   return (
