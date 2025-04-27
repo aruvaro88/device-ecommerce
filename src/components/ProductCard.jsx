@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom"
 
 export const ProductCard = ({ product }) => (
-  <Link to={`/product/${product.id}`} className="border p-4 flex flex-col items-center hover:shadow">
-    <img src={product.imgUrl} alt={product.model} className="h-40 object-contain" />
-    <h2 className="font-bold mt-2">{product.brand}</h2>
-    <p>{product.model}</p>
-    <p className="text-blue-600 font-semibold">{product.price || "-"}€</p>
-  </Link>
+  <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200">
+    <Link to={`/product/${product.id}`} className="block p-4">
+      <div className="h-48 flex items-center justify-center">
+        <img src={product.imgUrl} alt={product.model} className="max-h-full" />
+      </div>
+      <div className="mt-4">
+        <h3 className="text-lg font-semibold text-gray-800">{product.brand}</h3>
+        <p className="text-sm text-gray-600">{product.model}</p>
+        <p className="mt-2 text-xl font-bold text-blue-600">{product.price || "-"}€</p>
+      </div>
+    </Link>
+  </div>
 )

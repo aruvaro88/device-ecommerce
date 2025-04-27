@@ -1,40 +1,29 @@
 import { useState } from "react"
 import { addToCart } from "../api/api"
 import { useCart } from "../hooks/useCart"
+import { OptionSelector } from "./OptionSelector"
 
 export const ProductActions = ({ product }) => {
   const { incrementCart } = useCart()
-  const [color, setColor] = useState(product.colors[0] || "")
-  const [storage, setStorage] = useState(product.internalMemory[0] || "")
+  const [selectedColor, setSelectedColor] = useState(product.colors[0] || "")
+  const [selectedStorage, setSelectedStorage] = useState(product.internalMemory[0] || "")
 
   const handleAdd = async () => {
     const { count } = await addToCart({
       id: product.id,
-      colorCode: color,
-      storageCode: storage,
+      colorCode: selectedColor,
+      storageCode: selectedStorage,
     })
     incrementCart(count)
   }
 
   return (
-    <div className="space-y-4">
-      <select value={color} onChange={(e) => setColor(e.target.value)} className="border p-2 w-full">
-        {product.colors.map((color) => (
-          <option key={color} value={color}>
-            {color}
-          </option>
-        ))}
-      </select>
+    <div className="bg-white rounded-lg shadow p-6 space-y-6">
+      <OptionSelector label="Color" options={product.colors} selected={selectedColor} onSelect={setSelectedColor} />
 
-      <select value={storage} onChange={(e) => setStorage(e.target.value)} className="border p-2 w-full">
-        {product.internalMemory.map((memory) => (
-          <option key={memory} value={memory}>
-            {memory}
-          </option>
-        ))}
-      </select>
+      <OptionSelector label="Almacenamiento" options={product.internalMemory} selected={selectedStorage} onSelect={setSelectedStorage} />
 
-      <button onClick={handleAdd} className="bg-blue-500 text-white px-4 py-2 rounded">
+      <button onClick={handleAdd} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition">
         Añadir al carrito
       </button>
     </div>

@@ -7,7 +7,6 @@ export const getCachedData = (key) => {
     localStorage.removeItem(key)
     return null
   }
-  console.log("storedData", storedData)
   return storedData.data
 }
 

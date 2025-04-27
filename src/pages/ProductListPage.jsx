@@ -1,33 +1,40 @@
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { getProducts } from "../api/api"
 import { ProductCard } from "../components/ProductCard"
 import { SearchBar } from "../components/SearchBar"
-import { useSearch } from "../hooks/useSearch"
+
 export const ProductListPage = () => {
   const [products, setProducts] = useState([])
-  const { searchString, setSearchString } = useSearch()
+  const [searchString, setSearchString] = useState("")
 
   useEffect(() => {
-    getProducts().then((products) => {
-      setProducts(products)
-    })
+    getProducts().then(setProducts)
   }, [])
 
-  const filteredProducts = products.filter(
-    (elm) => elm.brand.toLowerCase().includes(searchString.toLowerCase()) || elm.model.toLowerCase().includes(searchString.toLowerCase())
+  const filtered = products.filter(
+    (p) => p.brand.toLowerCase().includes(searchString.toLowerCase()) || p.model.toLowerCase().includes(searchString.toLowerCase())
   )
 
+  const handleChange = (e) => {
+    setSearchString(e.target.value)
+  }
+
   return (
-    <>
-      <div className="mt-2 md:mt-0 w-full md:w-1/3">
-        <SearchBar searchString={searchString} setSearchString={setSearchString} />
+    <main className="container mx-auto px-6 py-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+        <h1 className="text-3xl font-bold text-gray-800">Nuestros Productos</h1>
+        <div className="w-full sm:w-1/3 mt-4 sm:mt-0">
+          <SearchBar searchString={searchString} onChange={handleChange} />
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4 p-16">
-        {filteredProducts.map((elm) => (
-          <ProductCard key={elm.id} product={elm} />
+      <div className="flex flex-wrap -mx-3">
+        {filtered.map((p) => (
+          <div key={p.id} className="px-3 mb-6 w-full sm:w-1/2 md:w-1/3 lg:w-1/4">
+            <ProductCard product={p} />
+          </div>
         ))}
       </div>
-    </>
+    </main>
   )
 }

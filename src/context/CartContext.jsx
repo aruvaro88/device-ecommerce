@@ -1,23 +1,19 @@
 import { createContext, useEffect, useState } from "react"
+import { getCachedData, setCachedData } from "../api/cache"
 
 export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
-  const savedCount = localStorage.getItem("cartCount")
-  const initialCount = savedCount ? Number(savedCount) : 0
-  const [cartCount, setCartCount] = useState(initialCount)
+  const savedCount = getCachedData("cartCount")
+  const [cartCount, setCartCount] = useState(savedCount ?? 0)
 
   const incrementCart = (newCount) => {
     setCartCount((prev) => prev + newCount)
   }
-  const clearCart = () => {
-    setCartCount(0)
-    localStorage.removeItem("cartCount")
-  }
 
   useEffect(() => {
-    localStorage.setItem("cartCount", cartCount)
+    setCachedData("cartCount", cartCount)
   }, [cartCount])
 
-  return <CartContext.Provider value={{ cartCount, incrementCart, clearCart }}>{children}</CartContext.Provider>
+  return <CartContext.Provider value={{ cartCount, incrementCart }}>{children}</CartContext.Provider>
 }

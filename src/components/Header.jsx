@@ -1,32 +1,50 @@
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import { useCart } from "../hooks/useCart"
 
-const Header = () => {
+export const Header = () => {
   const { cartCount } = useCart()
-
   const location = useLocation()
   const isHome = location.pathname === "/"
-  const { clearCart } = useCart()
 
   return (
-    <>
-      <header className="flex flex-col md:flex-row justify-between items-center p-4 bg-gray-200">
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="text-2xl font-bold">
-            <img src="/device_ecommerce_logo_full.svg" alt="Logo" className="h-18" />
-          </Link>
-        </div>
+    <header className="bg-white shadow sticky top-0 z-10">
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <Link to="/" className="flex items-center">
+          <img src="/device_ecommerce_logo_full.svg" alt="Logo" className="h-10" />
+          <span className="ml-2 text-2xl font-bold text-gray-800">Mi Tienda</span>
+        </Link>
 
-        <button onClick={clearCart} className="ml-4 bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
-          Vaciar carrito
-        </button>
-        <div className="flex items-center space-x-2 mt-2 md:mt-0">
-          <span>{cartCount}</span>
+        <div className="flex items-center space-x-4">
+          <div className="relative">
+            <ShoppingCartIcon className="w-6 h-6 text-gray-700" />
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </div>
         </div>
-      </header>
-      <span>{isHome ? "Productos" : "Productos / Detalle"}</span>
-    </>
+      </div>
+
+      <div className="bg-gray-50">
+        <div className="container mx-auto px-6 py-2 text-sm text-gray-600">
+          {isHome ? (
+            <>
+              Inicio / <span className="font-semibold">Productos</span>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="hover:text-gray-900">
+                Productos
+              </Link>
+              <span className="px-2">/</span>
+              <span className="font-semibold">Detalle</span>
+            </>
+          )}
+        </div>
+      </div>
+    </header>
   )
 }
-
-export default Header
