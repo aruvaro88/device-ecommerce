@@ -1,0 +1,21 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="100" viewBox="0 0 320 100" fill="none">
+  <style>
+    .cart { stroke:#007BFF; stroke-width:3; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+    .phone { fill:#0A0A23; }
+    .text1 { font-family:'Arial Black', Arial, sans-serif; font-size:28px; fill:#0A0A23; }
+    .text2 { font-family:'Arial', sans-serif; font-size:20px; fill:#007BFF; }
+  </style>
+  <!-- Shopping cart outline -->
+  <path class="cart" d="M15 30 H105 L95 65 H35 Z"/>
+  <!-- Wheels -->
+  <circle cx="45" cy="72" r="5" fill="#007BFF"/>
+  <circle cx="85" cy="72" r="5" fill="#007BFF"/>
+  <!-- Smartphone inside cart -->
+  <rect x="55" y="38" width="25" height="18" rx="2" class="phone"/>
+  <!-- Home button -->
+  <circle cx="67.5" cy="52" r="1.5" fill="white"/>
+  <!-- Text -->
+  <text x="130" y="55" class="text1">Device</text>
+  <text x="130" y="80" class="text2">Ecommerce</text>
+</svg>
