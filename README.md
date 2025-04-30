@@ -162,7 +162,8 @@ npm run test
 │       ├── ProductImage.test.jsx
 │       ├── ProductListPage.test.jsx
 │       └── SearchBar.test.jsx
-└── vite.config.js```
+└── vite.config.js
+```
 
 ## License
 
